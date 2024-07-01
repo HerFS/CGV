@@ -1,0 +1,429 @@
+<!-- 회원가입 -->
+{% block content %}
+<head>
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/128/686/686458.png">
+  <title>Cinema</title>
+</head>
+
+<style>
+  body {
+    background-image: url('https://slowalk.co.kr/wp-content/uploads/2021/07/20210701_063035.png');
+    /* 배경 이미지 */
+  }
+  INPUT {
+    BORDER-BOTTOM: rgb(0, 0, 0) 1px solid;
+    BORDER-LEFT: medium none;
+    BORDER-RIGHT: medium none;
+    BORDER-TOP: medium none;
+    FONT-SIZE: 9pt
+  }
+  .text-font{
+    width:300px;
+    height:30px;
+    font-size:18px;
+    background-color: #FFFCEB;
+  }
+  .icon-size{
+    width:25px;
+    height:25px;
+  }
+  .seat {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .clicked {
+            background-color: red;
+            color: white;
+        }
+        
+        select {
+
+width:100%;
+
+height:100%;
+
+padding:0 28px 0 10px;
+
+font-size: 15px;
+
+border:0;
+
+-webkit-appearance:none; /* for chrome */
+
+-moz-appearance:none; /*for firefox*/
+
+appearance:none;
+
+box-sizing: border-box;
+
+background:transparent;
+
+}
+
+select::-ms-expand{
+
+display:none;/*for IE10,11*/
+
+}
+
+.select-wrap {
+
+width:200px;
+
+height: 28px;
+
+border:1px solid black;
+
+background:url('https://cdn-icons-png.flaticon.com/128/32/32195.png') no-repeat 97% 50%/15px auto;
+
+}
+
+</style>
+
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+  
+  * {
+    box-sizing: border-box;
+  }
+
+  
+  .movie-container {
+    margin: 20px 0;
+  }
+  
+  
+  .container {
+    perspective: 1000px;
+    margin-bottom: 30px;
+  }
+  
+  .seat {
+    background-color: #444451;
+    height: 12px;
+    width: 15px;
+    margin: 3px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  .seat.selected {
+    background-color: red;
+  }
+  
+  .seat.occupied {
+    background-color: #ffff;
+  }
+  
+  .seat:nth-of-type(2) {
+    margin-right: 18px;
+  }
+  
+  .seat:nth-last-of-type(2) {
+    margin-left: 18px;
+  }
+  
+  .seat:not(.occupied):hover {
+    cursor: pointer;
+    transform: scale(1.2);
+  }
+  
+  .showcase .seat:not(.occupied):hover {
+    cursor: default;
+    transform: scale(1);
+  }
+  
+  .showcase {
+    background-color: rgba(0,0,0,0.1);
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #777;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .showcase li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+  }
+  
+  .showcase li small {
+    margin-left: 2px;
+  }
+  
+  .row {
+    display: flex;
+  }
+  
+  .screen {
+    background-color: #ffff;
+    height: 70px;
+    width: 100%;
+    margin: 15px 0;
+    transform: rotateX(-45deg);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
+  }
+  
+  p.text {
+    margin: 5px 0;
+  }
+  
+  p.text span {
+    color: red;
+  }
+  </style>
+
+  
+  <div class="timeline">
+      <form id="join-form" action="/auth/seat" method="post">
+        <div style="position: absolute;">
+          <div style="position: relative; top: -30px; left: -30px;">
+            <img src="https://mblogthumb-phinf.pstatic.net/MjAxOTA4MjhfMjAx/MDAxNTY2OTg3ODE4NDI5.ND-t2qf0qriOFmPj0fSorkuocIp5ESJN60eipmDSOTwg.qAoY-zoRbnJ_vM6hH1fiNpS3_2G75OX5OP-i6YQaZXcg.JPEG.eej0328/1.jpg?type=w800" width="1200px" height="860px">
+          <!-- 포스터 뒷배경 -->
+          </div>
+          <div style="position: relative; top: 200px; left: 625px;">
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw8PDw8PDQ8PDQ0PDw0NDw8NDQ8PDw8NFRUWFhUVFRUYHSggGBolGxUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKBQUFDgUFDisZExkrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAMIBAwMBIgACEQEDEQH/xAAWAAEBAQAAAAAAAAAAAAAAAAAAAQf/xAAVEAEBAAAAAAAAAAAAAAAAAAAAAf/EABYBAQEBAAAAAAAAAAAAAAAAAAAGA//EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ANbAS7YAAAAAAAAAARQAAAABBQRQAAAAAEUAAACAAAAACKAgoCCgAAAAAAAAAAAAIoAAAAAACKAAAIKAAAAAAgKAAAAigAAAAAigAgKAAACKAAAAICgAAAIoAACKAAAAAAAAigAAAAAAAAAAigAAAAAAAACKAAgCgAAAAAAAAACKAIAoAAICggKAAAAIoAAAAAAAICgAIoAAAACKACKAAAAAAAIoAAAACKAAAIoAAAAAAAAAAAAAAAAAAAAAAAAAAAAACKAAAAAAAAAAAAAAAIoAACKAigAACKAAAAigIoACAoAAAAAAAAAAAAIAoAiiAoAAAAAAAAigAAAAAAAAAAAAAAAAIoAAAIoAAAAAAIoAIKAAAigAAAAAAAAIoAIoCKAAAAAIKACKCKICiKAAAAAIoAAAAAAAAAAAAAAAAAAAACKgKAACAoAAICgAiiAoAAigAAAAAAigAACAAqKAgoBEUAAAABFABIoCLAAAARQAAEUAAAWAA//Z" width="500px" height="500px">
+          <!-- 포스터 뒷배경 -->
+          </div>
+            <div style="position: relative; top: 100px; left: 710px;">
+              <img src="https://img.cgv.co.kr/R2014/images/title/h1_cgv.png">
+                  <div style="position: absolute; right: -700px; bottom: -640px;">
+                    <div style="position: absolute; right: 0px; bottom: 490px;"><h1 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 40px; width: 200px;">좌석선택</h1></div>
+                  </div>
+                  <div style="position: absolute; right: -680px; bottom: -620px;">
+                    <div class="seat-wrapper"></div>
+                    <a href="/ticket">뒤로가기</a>
+                    <button id='target_btn' class="button">예매하기</button>
+                    <!-- <input id='target_btn' type='button' value='버튼' onclick="btnActive()"/> -->
+                  </div>
+                  <div style="position: absolute; right: -620px; bottom: -280px;">
+                    <div style="font-weight: bolder; font-size: 20px; text-align: center;">비긴 어게인</div>
+
+                    <div class="select-wrap movie-container">
+                      <select id="movie">
+                        <option value="14000">성인 ($14,000)</option>
+                        <option value="10000">청소년 ($10,000)</option>
+                        <option value="8000">평택대 재학생 ($8,000)</option>
+                      </select>
+                    </div>
+                    <div style="position: absolute; right: -30px; bottom: -150px;">
+                      <body>
+                        <ul class="showcase">
+                          <li>
+                            <div class="seat"></div>
+                            <small>N/A</small>
+                          </li>
+                          <li>
+                            <div class="seat selected"></div>
+                            <small>Selected</small>
+                          </li>
+                          <li>
+                            <div class="seat occupied"></div>
+                            <small>Occupied</small>
+                          </li>
+                        </ul>
+            
+                        <div class="container">
+                          <div class="screen"></div>
+                      
+                          <div class="row" style="position: absolute; right: 45px; bottom: -20px;">
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                          </div>
+                      
+                          <div class="row" style="position: absolute; right: 45px; bottom: -40px;">
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                          </div>
+                      
+                          <div class="row" style="position: absolute; right: 45px; bottom: -60px;">
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                          </div>
+                      
+                          <div class="row" style="position: absolute; right: 45px; bottom: -80px;">
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                          </div>
+                      
+                          <div class="row" style="position: absolute; right: 45px; bottom: -100px;">
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                          </div>
+                      
+                          <div class="row" style="position: absolute; right: 45px; bottom: -120px;">
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                            <div class="seat"></div>
+                          </div>
+                        </div>
+                        <input id="id" name="id" value="{{user.id}}" style="display: none;">
+                        <input id="money" name="user_money" value="{{user.money}}" style="display: none;">
+                        <input id="movie_name" name="movie_name" value="비긴 어게인" style="display: none;">
+                        <input id="movie_day" name="movie_day" value="2021/12/21" style="display: none;">                        
+                        <input id="movie_time" name="movie_time" value="08:55" style="display: none;">
+                        <input id="movie_seat" name="movie_seat" value="" style="display: none;">
+                        <input id="price" name="movie_price"  value="" style="display: none;">
+                        <div style="position: absolute; right: 45px; bottom: -130px;">
+                          <p class="text">인원 수 : <span id="count" name="movie_seat"></span>명 가격 : $<span id="total" name="movie_price"></span>원</p>
+                        </div>
+
+                      </body>
+                    </div>
+                  </div>
+
+            </div>
+            <style>
+              img {
+                position : absolute;
+                left : 350px;
+                top : 60px;
+              }
+            </style>
+            <body>
+              <img src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000077/77772/77772_320.jpg" style="width: 570px; height: 800;">
+              <!-- 영화 포스터 -->
+            </body>
+        </div>
+      </form>
+  </div>
+{% endblock %}
+
+{% block script %}
+<script>
+  const container8 = document.querySelector('.container');
+  const seats8 = document.querySelectorAll('.row .seat:not(.occupied)');
+  const count8 = document.getElementById('count');
+  const total8 = document.getElementById('total');
+  const movieSelect8 = document.getElementById('movie');
+  const money8 = document.getElementById("money").value;
+  populateUI8();
+  
+  let ticketPrice8 = +movieSelect8.value;
+  
+  // Save selected movie index and price
+  
+  function setMovieData8(movieIndex8, moviePrice8) {
+    localStorage.setItem('selectedMovieIndex8', (movieIndex8));
+    localStorage.setItem('selectedMoviePrice8', (moviePrice8));
+  }
+  
+  // Update total and count 
+  function updateSelectedCount8() {
+    const selectedSeats8 = document.querySelectorAll('.row .seat.selected');
+    const occupiedSeats8 = document.querySelectorAll('.row .seat.occupied');
+    // Copy selected seat into an array 
+    // Map through the array
+    // Return a new array indexes
+  
+    const seatsIndex8 = [...selectedSeats8].map((seat) =>{
+      return [...seats8].indexOf(seat)
+    })
+  
+    const seatsIndex_8 = [...occupiedSeats8].map((seat) =>{
+      return [...seats8].indexOf(seat)
+    })
+  
+    localStorage.setItem('selectedSeats8', JSON.stringify(seatsIndex8));
+    localStorage.setItem('occupiedSeats8', JSON.stringify(seatsIndex_8));
+  
+    const selectedSeatsCount8 = selectedSeats8.length;
+
+    count8.innerText = selectedSeatsCount8;
+    total8.innerText = selectedSeatsCount8 * ticketPrice8;
+    document.getElementById('price').value = selectedSeatsCount8 * ticketPrice8;
+    document.getElementById('movie_seat').value = selectedSeatsCount8;
+    let button8 = document.querySelector(".button");
+    button8.disabled = true;
+      if(selectedSeatsCount8 * ticketPrice8 <= money8) {
+        button8.disabled = false;
+      } else {
+        button8.disabled = true;
+      }
+  }
+  
+  // Get data from localstorage and populate the UI
+  
+  function populateUI8() {
+    const selectedSeats8 = JSON.parse(localStorage.getItem('selectedSeats8'));
+    const occupiedSeats8 = JSON.parse(localStorage.getItem('occupiedSeats8'));
+  
+    if (selectedSeats8 !== null && selectedSeats8.length >= 0) {
+      seats8.forEach((seat, index) => {
+        if (selectedSeats8.indexOf(index) > -1 || occupiedSeats8.indexOf(index) > -1) {
+          seat.classList.add('occupied');
+        }
+      });
+    }
+  
+    const selectedMovieIndex8 = localStorage.getItem('selectedMovieIndex8');
+  
+    if(selectedMovieIndex8 !== null) {
+      movieSelect8.selectedIndex = selectedMovieIndex8;
+    }
+  }
+  
+  //Movie Select Event
+  movieSelect8.addEventListener('change', (e) => {
+    ticketPrice8 = +e.target.value;
+    setMovieData8(e.target.selectedIndex, e.target.value);
+    updateSelectedCount8();
+  })
+  
+  // Seat click event
+  container8.addEventListener('click', (e) => {
+    if (e.target.classList.contains('seat') && 
+    !e.target.classList.contains('occupied')
+    ) {
+      e.target.classList.toggle('selected');
+  
+      updateSelectedCount8()
+    }
+  })
+  
+  // Initial count and total set 
+  
+  updateSelectedCount8();
+  
+</script>
+{% endblock %}

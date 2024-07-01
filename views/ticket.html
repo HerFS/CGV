@@ -1,0 +1,645 @@
+<html lang="en">
+
+<head>
+    <link rel="shortcut icon" type="image/-icon" href="https://cdn-icons-png.flaticon.com/128/686/686458.png">
+    <title>Cinema</title>
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko"><head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="Expires" content="-1">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Cache-Control" content="No-Cache">
+        <meta http-equiv="imagetoolbar" content="no">
+        <meta name="viewport" content="width=1024">
+
+        
+        <meta id="ctl00_og_image" property="og:image" content="http://img.cgv.co.kr/WebApp/images/common/logo_new_kakao_prevw.png">
+        <link rel="alternate" href="http://m.cgv.co.kr">
+        <title id="ctl00_headerTitle"></title>
+        <link rel="stylesheet" media="all" type="text/css" href="https://img.cgv.co.kr/R2014/css/reset.css">
+        <link rel="stylesheet" media="all" type="text/css" href="https://img.cgv.co.kr/R2014/css/layout.css">
+        <link rel="stylesheet" media="all" type="text/css" href="https://img.cgv.co.kr/R2014/css/module.css">
+      </head>
+</head>
+    <style>
+    * {
+    font-size: 11px;
+}
+
+body {
+    background-color: #FDFCF0;
+}
+
+/* content */
+
+.reserve-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    height: 700px;
+    /* border: 1px solid #dddddd; */
+}
+
+.reserve-container>div {
+    border: 1px solid #dddddd;
+}
+
+.reserve-title {
+    border-bottom: 1px solid #dddddd;
+    background-color: #444444;
+    text-align: center;
+    color: #dddddd;
+    padding: 5px;
+    font-size: 15px;
+    font-weight: bold;
+}
+/* 타이틀 */
+
+.movie-part {
+    width: 284px;
+}
+
+
+.theater-in-part {
+    width: 477px;
+    height: 500px;
+    /* padding: 3px; */
+    border: 1px solid #dddddd;
+}
+
+.day-part {
+    width: 91px;
+}
+
+.time-part {
+    width: 384px;
+}
+
+.sort-wrapper {
+    margin: 10px 6px 6px 10px;
+    /* padding: 3px; */
+    display: flex;
+    border-bottom: 1px solid #dddddd;
+    font-size: 12px;
+}
+/* 영화 순서 */
+
+
+
+
+.sort-wrapper>div {
+    padding: 3px;
+}
+
+.sort-wrapper>div:hover {
+    border-bottom: 1px solid #111111;
+}
+
+.sort-selected {
+    font-size: 15px;
+    font-weight: bold;
+    border-bottom: 1px solid #111111;
+}
+
+.sort-korean {
+    margin-left: 6px;
+}
+
+.reserve-date {
+    padding-top: 5px;
+    display: flex;
+    flex-direction: column;
+
+}
+/* 스크롤 */
+
+.movie-date-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 2px;
+}
+
+.movie-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 2px;
+}
+
+.movie-wrapper2 {
+    border: #111111;
+    background-color: #E6E4D9;
+}
+
+.movie-week-of-day { 
+    margin-left: 5px;
+    font-size: 10px;
+    width: 12px;
+    height: 22px;
+    line-height: 22px;
+}
+
+.movie-day {
+    text-align: center;
+    width: 34px;
+    height: 22px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.saturday {
+    color: #31597E;
+    font-weight: bold;
+}
+
+.sunday {
+    color: #AF2D2D;
+    font-weight: bold;
+}
+/* 날짜 글씨 */
+
+.movie-date-wrapper-active {
+    background-color: #333333;
+}
+
+.movie-date-wrapper-active>* {
+    color: white;
+}
+
+.clicked {
+    background-color: #333333;
+    color: white;
+    }
+
+.clicked2 {
+    background-color: #333333;
+    color: white;
+    }
+
+div.panel {
+	max-height: 0;
+	overflow: hidden;
+}
+
+</style>
+</head>
+
+<body>
+    <div id="cgvwrap">  
+        <!-- Header -->
+        <div id="header">
+          <div class="head">                 
+                  <!-- 서비스 메뉴 --> 
+                  <h1><a><img src="https://img.cgv.co.kr/R2014/images/title/h1_cgv.png" alt="CGV"></a></h1> 
+                  <!-- 상표 -->
+
+               <div class="sect-service">
+                   <ul class="gnb">
+                       <a href="/movies" class="logout" title="뒤로가기"><img src="https://cdn-icons-png.flaticon.com/128/25/25694.png" width="30px" height="30px"></a>
+                   </ul>
+                   <div style="position: absolute; right: 760px; bottom: 5px;">
+                       <div class="user-name" style="font-family: Times New Roman; font-weight: bold">{{'안녕하세요. ' + user.nick + '님 반갑습니다. '}}
+                        <div style="position: absolute; right: -90px; bottom: 0px;">
+                            <a id="profile" href="/profile" class="btn">마이페이지</a>
+                        </div>
+                           <div style="position: absolute; right: -20px; bottom: 1px;">
+                               <img src="https://cdn-icons-png.flaticon.com/128/132/132233.png" width="15px" height="15px">
+                           </div>
+                       </div>
+                   </div>
+               </div>
+                  <!-- 서비스 메뉴 -->
+                  
+                  <div class="im-wrap">
+              <h2><img src="https://img.cgv.co.kr/R2014/images/title/h2_ticket.png" alt="TICKET"></h2>
+              
+      
+      <!-- 통합검색 -->
+              <div class="lnb">
+                <h2>CGV 주메뉴</h2>
+                <ul id="gnb_list">
+                  <li class="movie"><a id="movies" href="/movies" class="btn">영화</a></li>
+                  <li class="booking"><a href="/ticket">예매</a></li>
+                </ul>
+              </div>                   
+            </div>
+          </div>
+        </div>
+    <div class="reserve-container">
+        <div class="movie-part">
+            <div class="reserve-title">영화</div>
+            <div class="sort-wrapper">
+                <button id="select" type="submit" class="sort-rate sort-selected">예매율순</button>
+            </div>
+            
+            <div class="movie-list" id="movie_list">
+                <style type="text/css">
+                    a {height:25px; font-weight: bold;}
+                </style>
+                <div style="position: relative; top: 1px; left: 40px;">
+                    <span position="absolute;" class="ico-grade grade-12">12세 이상</span>
+                    <span position="absolute;" class="ico-grade grade-15" style="top: 40px;">15세 이상</span>
+                    <span position="absolute;" class="ico-grade grade-all" style="top: 75px;">전체 이용가</span>
+                    <span position="absolute;" class="ico-grade grade-15" style="top: 110px;">15세 이상</span>
+                    <span position="absolute;" class="ico-grade grade-19" style="top: 145px;">청소년 관람불가</span>
+                    <span position="absolute;" class="ico-grade grade-15" style="top: 180px;">15세 이상</span>
+                    <span position="absolute;" class="ico-grade grade-12" style="top: 214px;">12세 이상</span>
+                    <span position="absolute;" class="ico-grade grade-15" style="top: 250px;">15세 이상</span>
+                </div>
+                <a href="#1" onclick="return false;" class="movie-wrapper select accordion">스파이더맨-노 웨이 홈</a>
+                <div class="panel theater-in-part" style="position: absolute; right: 569px; bottom: 208px;">
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">금 17</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 330px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                        <a href="/seat1"  style="display:block; font-size: 20px; width: 60px; height:30px; text-align: left; line-height: 40px">19:10</a>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">토 18</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">일 19</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">월 20</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">화 21</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                </div>
+
+
+                <a href="#2" onclick="return false;" class="movie-wrapper select accordion">베놈 2</a>
+                <div class="panel theater-in-part" style="position: absolute; right: 569px; bottom: 208px;">
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">금 17</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">토 18</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 330px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                        <a href="/seat2"  style="display:block; font-size: 20px; width: 60px; height:30px; text-align: left; line-height: 40px">15:40</a>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">일 19</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">월 20</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">화 21</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                </div>
+                <a href="#3" onclick="return false;" class="movie-wrapper select accordion">겨울왕국 2</a>
+                <div class="panel theater-in-part" style="position: absolute; right: 569px; bottom: 208px;">
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">금 17</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">토 18</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">일 19</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">월 20</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 310px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                        <img src="https://cdn-icons-png.flaticon.com/128/869/869869.png" style="width: 20px; height: 20px;"><a>조조</a>
+                        <a href="/seat3"  style="display:block; font-size: 20px; width: 60px; height:30px; text-align: left; line-height: 40px">09:00</a>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">화 21</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                </div>
+
+
+                <a href="#4" onclick="return false;" class="movie-wrapper select accordion">인비저블맨</a>
+                <div class="panel theater-in-part" style="position: absolute; right: 569px; bottom: 208px;">
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">금 17</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">토 18</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">일 19</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 330px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                        <a href="/seat4"  style="display:block; font-size: 20px; width: 60px; height:30px; text-align: left; line-height: 40px">20:40</a>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">월 20</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">화 21</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                </div>
+
+
+                <a href="#5" onclick="return false;" class="movie-wrapper select accordion">강릉</a>
+                <div class="panel theater-in-part" style="position: absolute; right: 569px; bottom: 208px;">
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">금 17</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 310px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                        <img src="https://cdn-icons-png.flaticon.com/128/389/389082.png" style="width: 20px; height: 20px;"><a>심야</a>
+                        <a href="/seat5"  style="display:block; font-size: 20px; width: 60px; height:30px; text-align: left; line-height: 40px">23:40</a>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">토 18</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">일 19</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">월 20</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">화 21</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                </div>
+
+
+                <a href="#6" onclick="return false;" class="movie-wrapper select accordion">1987</a>
+                <div class="panel theater-in-part" style="position: absolute; right: 569px; bottom: 208px;">
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">금 17</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">토 18</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 330px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                        <a href="/seat6"  style="display:block; font-size: 20px; width: 60px; height:30px; text-align: left; line-height: 40px">13:20</a>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">일 19</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">월 20</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">화 21</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                </div>
+
+
+                <a href="#7" onclick="return false;" class="movie-wrapper select accordion">듄</a>
+                <div class="panel theater-in-part" style="position: absolute; right: 569px; bottom: 208px;">
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">금 17</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">토 18</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">일 19</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">월 20</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">화 21</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 330px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                        <a href="/seat7"  style="display:block; font-size: 20px; width: 60px; height:30px; text-align: left; line-height: 40px">11:10</a>
+                    </div>
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                </div>
+
+
+                <a href="#8" onclick="return false;" class="movie-wrapper select accordion">비긴 어게인</a>
+                <div class="panel theater-in-part" style="position: absolute; right: 569px; bottom: 208px;">
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">금 17</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">토 18</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">일 19</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">월 20</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 360px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                    </div>
+                    <a href="#" onclick="return false;" class="select2 accordion2" style="display:block; font-size: 20px; width:92px; height:35px; text-align: center; line-height: 40px">화 21</a>
+                    <div class="panel" style="position: absolute; right: 70px; bottom: 310px;">
+                        <div style="font-weight: bolder; font-size: 20px;">2D 영화관</div>
+                        <br><div style="margin: 0 auto; width:300; height: 0px; border: 1px solid gray;"></div><br>
+                        <img src="https://cdn-icons-png.flaticon.com/128/869/869869.png" style="width: 20px; height: 20px;"><a>조조</a>
+                        <a href="/seat8"  style="display:block; font-size: 20px; width: 60px; height:30px; text-align: left; line-height: 40px">08:55</a>
+                    </div>
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="day-part">
+            <div class="reserve-title">날짜</div>
+                <p style="font-size: 20px; font-weight: bold; text-align: center;">
+                    <a style="font-size: 17px;">2021</a><br><a style="font-size: 15px;">12</a>
+                </p>
+            <div class="reserve-date"></div>
+        </div>
+        <div class="time-part">
+            <div class="reserve-title">시간</div>
+            <div class="sort-wrapper">
+                <img src="https://cdn-icons-png.flaticon.com/128/869/869869.png" style="width: 20px; height: 20px;"> 조조&nbsp;
+                <img src="https://cdn-icons-png.flaticon.com/128/389/389082.png" style="width: 15px; height: 15px;"> 심야
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        var select = document.getElementsByClassName("select");
+
+        function handleClick(event) {
+            console.log(event.target);
+
+            console.log(event.target.classList);
+
+            if (event.target.classList[1] === "clicked") {
+                hiddenTB.style.display="block";
+            } else {
+            for (var i = 0; i < select.length; i++) {
+                select[i].classList.remove("clicked");
+            }
+                event.target.classList.add("clicked");
+            }
+        }
+
+        function init() {
+            for (var i = 0; i < select.length; i++) {
+            select[i].addEventListener("click", handleClick);
+            }
+        }
+
+        init();
+
+    </script>
+    
+    <script>
+        var select2 = document.getElementsByClassName("select2");
+
+        function handleClick2(event) {
+            console.log(event.target);
+
+            console.log(event.target.classList);
+            
+            if (event.target.classList[1] === "clicked2") {
+                hiddenTB.style.display="block";
+            } else {
+            for (var i = 0; i < select2.length; i++) {
+                select2[i].classList.remove("clicked2");
+            }
+                event.target.classList.add("clicked2");
+            }
+        }
+
+        function init() {
+            for (var i = 0; i < select2.length; i++) {
+            select2[i].addEventListener("click", handleClick2);
+            }
+        }
+
+        init();
+    </script>
+
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+    
+        for (var i = 0; i < acc.length; i++) {
+    
+              acc[i].onclick = function() {	 
+                 // 클릭을 했을 때 기존에 열려 있던 아코디언을 접는다. (1개의 아코디언만 열리게)
+                 for (var j = 0 ; j<acc.length; j++){
+                    // 버튼 상태에 입혀진 active 라는 클래스를 지운다.
+                     acc[j].classList.remove("active");
+                    // 버튼 다음에 있는 div 콘텐츠 높이를 0으로 만든다. == 아코디언을 접는다.
+                     if (this!==acc[j]) {
+                         acc[j].nextElementSibling.style.maxHeight = null;
+                     }
+                 }
+    
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight){
+                    this.classList.remove("active");
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+         
+              }
+        }
+    </script>
+
+    <script>
+        var acc2 = document.getElementsByClassName("accordion2");
+
+        for (var i = 0; i < acc2.length; i++) {
+
+        acc2[i].onclick = function() {	 
+        // 클릭을 했을 때 기존에 열려 있던 아코디언을 접는다. (1개의 아코디언만 열리게)
+        for (var j = 0 ; j<acc2.length; j++){
+        // 버튼 상태에 입혀진 active 라는 클래스를 지운다.
+        acc2[j].classList.remove("active");
+        // 버튼 다음에 있는 div 콘텐츠 높이를 0으로 만든다. == 아코디언을 접는다.
+        if (this!==acc2[j]) {
+         acc2[j].nextElementSibling.style.maxHeight = null;
+        }
+    }
+
+    this.classList.toggle("active");
+    var panel2 = this.nextElementSibling;
+    if (panel2.style.maxHeight){
+    this.classList.remove("active");
+    // panel.style.maxHeight = null;
+} else {
+    panel2.style.maxHeight = panel2.scrollHeight + "px";
+}
+
+}
+}
+</script>
+
+
+
+</body>
+
+</html>

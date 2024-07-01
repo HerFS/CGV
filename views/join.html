@@ -1,0 +1,134 @@
+<!-- 회원가입 -->
+{% block content %}
+<head>
+  <link rel="shortcut icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/128/686/686458.png">
+  <title>Cinema</title>
+</head>
+
+<style>
+  body {
+    background-image: url('https://slowalk.co.kr/wp-content/uploads/2021/07/20210701_063035.png');
+    /* 배경 이미지 */
+  }
+  INPUT {
+    BORDER-BOTTOM: rgb(0, 0, 0) 1px solid;
+    BORDER-LEFT: medium none;
+    BORDER-RIGHT: medium none;
+    BORDER-TOP: medium none;
+    FONT-SIZE: 9pt
+  }
+  .text-font{
+    width:300px;
+    height:30px;
+    font-size:18px;
+    background-color: #FFFCEB;
+  }
+  .icon-size{
+    width:25px;
+    height:25px;
+  }
+</style>
+  <div class="timeline">
+      <form id="join-form" action="/auth/join" method="post">
+        <div style="position: absolute;">
+          <div style="position: relative; top: -30px; left: -30px;">
+            <img src="https://mblogthumb-phinf.pstatic.net/MjAxOTA4MjhfMjAx/MDAxNTY2OTg3ODE4NDI5.ND-t2qf0qriOFmPj0fSorkuocIp5ESJN60eipmDSOTwg.qAoY-zoRbnJ_vM6hH1fiNpS3_2G75OX5OP-i6YQaZXcg.JPEG.eej0328/1.jpg?type=w800" width="1200px" height="860px">
+          <!-- 포스터 뒷배경 -->
+          </div>
+            <div style="position: relative; top: 100px; left: 710px;">
+              <img src="https://img.cgv.co.kr/R2014/images/title/h1_cgv.png">
+                  <div style="position: absolute; right: -650px; bottom: -640px;">
+                    <div style="position: absolute; right: 0px; bottom: 490px;"><h1 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 40px;">회원가입</h1></div>
+                    <p style="font-size:30px;">
+                      <input id="join-email" type="email" name="email" class="id text-font" placeholder="Email"><br><br>
+                      <!-- 이메일 -->
+                      <input id="join-nick" type="text" name="nick" class="nick text-font" maxlength='15' placeholder="Nick name"><br><br>
+                      <!-- 이름 -->
+                      <input id="join-password" type="password" name="password" class="pw text-font" maxlength='12' placeholder="Password"><br><br>
+                      <input id="join-password2" type="password" name="password2" class="pw2 text-font" maxlength='12' placeholder="Password Again"><br><br>
+                      <!-- 비밀번호 -->
+                      <input id="join-phone" type="text" name="phone" class="pn text-font" maxlength='11' placeholder="Phone Number"><br><br>
+                      <!-- 폰 번호 -->
+                      <div style="position: relative; top: -30px; left: 100px;">
+                        <button id="join-btn" type="submit" class="button" style="WIDTH: 60pt; HEIGHT: 30pt;">회원가입</button>
+                      </div>
+                      <a id="join" href="http://localhost:8001/" class="btn">메인화면</a>
+                    </p>
+                  </div>
+                  <div style="position: relative; top: 125px; left: 270px;">
+                    <img src="https://cdn-icons-png.flaticon.com/128/456/456212.png" class="icon-size"> 
+                    <!-- 로그인아이콘 -->
+                </div>
+                <div style="position: relative; top: 195px; left: 270px;">
+                  <img src="https://cdn-icons-png.flaticon.com/128/1828/1828486.png" class="icon-size">
+                  <!-- 닉네임아이콘 -->
+              </div>
+                <div style="position: relative; top: 265px; left: 270px;">
+                    <img src="https://cdn-icons-png.flaticon.com/128/483/483408.png" class="icon-size">
+                    <!-- 패스워드아이콘 -->
+                </div>
+                <div style="position: relative; top: 335px; left: 270px;">
+                  <img src="https://cdn-icons-png.flaticon.com/128/483/483408.png" class="icon-size">
+                  <!-- 패스워드아이콘 -->
+              </div>
+              <div style="position: relative; top: 405px; left: 270px;">
+                <img src="https://cdn-icons-png.flaticon.com/128/483/483969.png" class="icon-size">
+                <!-- 핸드폰아이콘 -->
+            </div>
+            </div>
+            <style>
+              img {
+                position : absolute;
+                left : 350px;
+                top : 60px;
+              }
+            </style>
+            <body>
+              <img src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000077/77772/77772_320.jpg" style="width: 570px; height: 800;">
+              <!-- 영화 포스터 -->
+            </body>
+        </div>
+      </form>
+  </div>
+{% endblock %}
+
+{% block script %}
+<script>
+  let id = document.querySelector(".id");
+  let nick = document.querySelector(".nick");
+  let pw = document.querySelector(".pw");
+  let pw2 = document.querySelector(".pw2");
+  let pn = document.querySelector(".pn");
+  let button = document.querySelector(".button");
+  button.disabled = true;
+  id.addEventListener("change", stateHandle);
+  nick.addEventListener("change", stateHandle);
+  pw.addEventListener("change", stateHandle);
+  pw2.addEventListener("change", stateHandle);
+  pn.addEventListener("change", stateHandle);
+  function stateHandle() {
+    const pn = document.querySelector(".pn").value;
+      if (document.querySelector(".id").value === "" || document.querySelector(".nick").value === "" || document.querySelector(".pw").value === "" || document.querySelector(".pw2").value === "" || document.querySelector(".pn").value === "") {
+      button.disabled = true; 
+      } else  if (document.querySelector(".pw").value != document.querySelector(".pw2").value || pn.length != 11){
+          button.disabled = true;
+      } else {
+        button.disabled = false;
+      }
+  }
+</script>
+<!-- 버튼 활성화 -->
+
+<script>
+  
+</script>
+
+<script>
+    window.onload = () => {
+      if (new URL(location.href).searchParams.get('error')) {
+        alert('이미 존재하는 이메일입니다.');
+      }
+    };
+</script>
+
+{% endblock %}

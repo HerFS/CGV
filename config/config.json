@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root", // 데이터 베이스 이름
+    "password": "", // 데이터 베이스 비밀번호
+    "database": "users", //데이터 베이스 테이블 이름
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "",
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "",
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

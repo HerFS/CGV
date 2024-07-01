@@ -1,0 +1,185 @@
+<html lang="en">
+
+<head>
+    <link rel="shortcut icon" type="image/-icon" href="https://cdn-icons-png.flaticon.com/128/686/686458.png">
+    <title>Cinema</title>
+
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko"><head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta http-equiv="Expires" content="-1">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Cache-Control" content="No-Cache">
+        <meta http-equiv="imagetoolbar" content="no">
+        <meta name="viewport" content="width=1024">
+
+        
+        <meta id="ctl00_og_image" property="og:image" content="http://img.cgv.co.kr/WebApp/images/common/logo_new_kakao_prevw.png">
+        <link rel="alternate" href="http://m.cgv.co.kr">
+        <title id="ctl00_headerTitle"></title>
+        <link rel="stylesheet" media="all" type="text/css" href="https://img.cgv.co.kr/R2014/css/reset.css">
+        <link rel="stylesheet" media="all" type="text/css" href="https://img.cgv.co.kr/R2014/css/layout.css">
+        <link rel="stylesheet" media="all" type="text/css" href="https://img.cgv.co.kr/R2014/css/module.css">
+      </head>
+</head>
+    <style>
+    * {
+    font-size: 11px;
+}
+
+body {
+    background-color: #FDFCF0;
+}
+
+/* content */
+
+.reserve-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    height: 500px;
+    /* border: 1px solid #dddddd; */
+}
+
+.reserve-container>div {
+    border: 1px solid #dddddd;
+}
+
+.reserve-title {
+    border-bottom: 1px solid #dddddd;
+    background-color: #444444;
+    text-align: center;
+    color: #dddddd;
+    padding: 5px;
+    font-size: 15px;
+    font-weight: bold;
+}
+/* 타이틀 */
+
+.user-part {
+    width: 284px;
+}
+
+.movie-part {
+    width: 500px;
+}
+
+.sort-wrapper {
+    margin: 10px 6px 6px 10px;
+    /* padding: 3px; */
+    display: flex;
+    border-bottom: 1px solid #dddddd;
+    font-size: 12px;
+}
+/* 영화 순서 */
+
+.sort-wrapper>div {
+    padding: 3px;
+}
+
+.sort-wrapper>div:hover {
+    border-bottom: 1px solid #111111;
+}
+
+.sort-selected {
+    font-size: 15px;
+    font-weight: bold;
+    border-bottom: 1px solid #111111;
+}
+
+.sort-korean {
+    margin-left: 6px;
+}
+
+.movie-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 2px;
+}
+
+.clicked {
+    background-color: #333333;
+    color: white;
+    }
+    </style>
+</head>
+<form id="join-form" action="/auth/profile" method="post">
+<body>
+    <div id="cgvwrap">  
+        <!-- Header -->
+        <div id="header">
+          <div class="head">                 
+                  <!-- 서비스 메뉴 --> 
+                  <h1><a><img src="https://img.cgv.co.kr/R2014/images/title/h1_cgv.png" alt="CGV"></a></h1> 
+                  <!-- 상표 -->
+
+               <div class="sect-service">
+                   <ul class="gnb">
+                       <a href="/movies" class="logout" title="뒤로가기"><img src="https://cdn-icons-png.flaticon.com/128/25/25694.png" width="30px" height="30px"></a>
+                   </ul>
+                   <div style="position: absolute; right: 760px; bottom: 5px;">
+                       <div class="user-name" style="font-family: Times New Roman; font-weight: bold">{{'안녕하세요. ' + user.nick + '님 반갑습니다. '}}
+                        <div style="position: absolute; right: -90px; bottom: 0px;">
+                            <a id="profile" href="/profile" class="btn">마이페이지</a>
+                        </div>
+                           <div style="position: absolute; right: -20px; bottom: 1px;">
+                               <img src="https://cdn-icons-png.flaticon.com/128/132/132233.png" width="15px" height="15px">
+                           </div>
+                       </div>
+                   </div>
+               </div>
+                  <!-- 서비스 메뉴 -->
+                  
+                  <div class="im-wrap">
+                    <h2><img src="https://img.cgv.co.kr/R2014/images/title/h2_cultureplex.png" alt="CULTUREPLEX"></h2>
+              
+      
+      <!-- 통합검색 -->
+              <div class="lnb">
+                <h2>CGV 주메뉴</h2>
+                <ul id="gnb_list">
+                  <li class="movie"><a id="movies" href="/movies" class="btn">영화</a></li>
+                  <li class="booking"><a href="/ticket">예매</a></li>
+                </ul>
+              </div>                   
+            </div>
+          </div>
+        </div>
+    <div class="reserve-container">
+        <div class="user-part">
+            <div class="reserve-title">내 정보</div>
+            
+            <div class="movie-list" id="movie_list" style="font-size: 15px;">
+                <br><div>- 닉네임 : {{user.nick}}</div><br>
+                <div>- 아이디 : {{user.email}}</div><br>
+                <div>- 휴대폰 번호 : {{user.phone}}</div><br>
+                <div>- 현재 잔액 : $ {{user.money}} 원</div><br>
+                <div>- 가입 날짜 : {{user.createdAt}}</div><br>
+                <input id="id" name="id" value="{{user.id}}" style="display: none;"><input name="user_money" value="{{user.money}}" style="display: none;"><br>
+                <div>- 입금하기 -</div>
+                <input id="join-money" name="money" placeholder="Money"><br>
+                <button id="join-btn" type="submit" style="WIDTH: 40pt; HEIGHT: 30pt;">입금하기</button>
+            </div>
+        </div>
+        <div class="movie-part">
+            <div class="reserve-title">영화 예매 목록</div>
+            <div style="position: absolute; right: 830px; bottom: 200px; text-align: center; width:200px; height: 250px; border: 2px solid gray; border-radius: 2em;">
+                <br><br><div style="margin: 0 auto; width:170; height: 0px; border: 1px solid gray;"></div>
+                <div style="font-size: 15px; font-weight: bolder;">{{user.movie}}</div>
+                <br><div style="font-size: 12px; font-weight: bolder;">예매 시간</div>
+                <div style="font-size: 14px;">{{user.movie_day}}</div>
+                <div style="font-size: 15px; font-weight: bolder;">{{user.movie_time}}</div>
+                <br><div style="font-size: 12px; font-weight: bolder;">예매 인원</div>
+                <div style="font-size: 14px;">인원 : {{user.movie_seat}} 명</div>
+                <br><div style="font-size: 12px; font-weight: bolder;">결제 비용</div>
+                <div style="font-size: 15px;">$ {{user.movie_price}} 원</div>
+            </div>
+        </div>
+        
+
+    </div>
+</body>
+</form>
+</html>
